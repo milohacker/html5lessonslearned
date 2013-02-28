@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>HTML5 Lessons Learned - Signing on the Web | Simulating the Pen</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="../src/css/normalize.css">
+    <link rel="stylesheet" href="../src/css/main.css">
+    <link rel="stylesheet" href="../src/css/jquery-ui-1.10.1.css">
+    <script src="../src/js/jquery-1.9.0.min.js"></script>
+    <script src="../src/js/jquery-ui-1.10.1.js"></script>
+    <script src="../src/js/modernizr-2.6.2.min.js"></script>
+    <script src="../src/js/signing-on-the-web.js"></script>
+</head>
+<body>
+    <header>
+        <div class="headings">
+            <h2>Lessons Learned</h2>
+            <h1>Signing on the Web</h1>
+        </div>
+        <a href="../index.html">
+            <img src="../src/img/html5logo.png" class="html5logo"/>
+        </a>
+    </header>
+
+    <!-- ***************************************************** -->
+    <!-- Everything revolves around the Canvas tag -->
+    <section class="wrapper" style="padding-bottom:0;">
+        <label>
+            Use your mouse to draw
+        </label>
+
+        <!-- Drawing goes here -->
+        <canvas id="drawing_pad"></canvas>
+        
+
+        <div id="section_process_image_options" class="actions" style="margin-bottom:0;">
+            <!-- Select different image processing functions -->
+            <button class="action right" onclick="gfx.Draw.clear();">Clear</button>
+
+            <button class="action" onclick="gfx.Draw.toggleSmooth(); $(this).toggleClass('selected');">Toggle Smoothing</button>
+            <button class="action" onclick="gfx.Draw.toggleVariableThickness(); $(this).toggleClass('selected');">Toggle Variable Thickness</button>
+        </div>
+    </section>
+
+    <script>
+    $(function() {
+        var width = $('#drawing_pad').width();
+        var height = $(window).height() - 228;
+
+        $('#drawing_pad').attr({
+            width : width,
+            height : height
+        }); 
+
+        gfx.Draw.initialize($('#drawing_pad'));
+    });
+    </script>
+</body>
+</html>

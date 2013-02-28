@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>HTML5 Lessons Learned - Signing on the Web</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="src/css/normalize.css">
+    <link rel="stylesheet" href="src/css/main.css">
+    <script src="src/js/jquery-1.9.0.min.js"></script>
+    <script src="src/js/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="headings">
+            <h2>Lessons Learned</h2>
+            <h1>Signing on the Web</h1>
+        </div>
+        <img src="src/img/html5logo.png" class="html5logo"/>
+    </header>
+    <section class="accent">
+        <p>
+            We sign our names onto various forms, receipts, and contracts on a daily basis. For some, signatures come off like chicken scratches, while for others they are like beautiful works of art. Regardless, each and every signature is as unique to us as are our finger prints or DNA, thus making them vital extensions of our identities.
+        </p>
+        <p>
+            Understanding the art, math, and science of signature creation can help reproduce this physical action in a virtual way. We will explore multiple methods of acquiring, beautifying, and applying signatures to a document using JavaScript and new HTML5 technologies
+        </p>
+    </section>
+    <section style="margin-bottom:100px;">
+        <h3>1. Image Processing</h3>
+        <p>
+            The most natural way to acquire a signature is to take a photograph of a handwritten
+            (known as a wet signature) one. This section will focus on processing an image to remove the background, noise, and other unwanted artifacts.
+        </p>
+
+        <div class="figure">
+            <img src="src/img/imgprocessing.png" />
+            <caption></caption>
+        </div>
+
+        <p>
+            More often than not, you'll find yourself with an image that is less than optimal for signature extraction -wether it's a noisy background (e.g. graph or ruled paper), poor lighting, or incorrect camera settings. Before we begin extracting a signature, we have to process the image using the following steps:
+            <ol>
+                <li><strong>Desaturate</strong> - This is basically turning an image black and white to help mask incorrect white balance</li>
+                <li><strong>Increase Brightness &amp; Contrast</strong> - Turning up the brightness and contrast will clamp all color data which helps mask poor lighting and drowns out the background</li>
+                <li><strong>Remove white pixels</strong> - After desaturating and clamping the image, the background can be removed by sampling each pixel and checking if it's within a threshold</li>
+                <li><strong>Tint visible pixels</strong> - 
+            </ol>
+        </p>
+
+        <a href="Lesson/1-image-processing.html" target="_blank" class="button">See Working Demo</a>
+    </section>
+
+    <section style="margin-bottom:100px;">
+        <h3>2. Simulating the Pen</h3>
+        <p>
+            Drawing a signature on a computer, as opposed to using a physical pen, can be a
+            difficult task for both the signer and the engineer creating the experience. Here we will explore using the Canvas API to capture mouse or touch movements to draw points and lines. This section will also explore methods of producing beautiful, organic brush strokes that simulate a "wet signature" more closely.
+        </p>
+
+        <p>
+            To acheive better signatures via Canvas API, we will explore the following two methods:
+            <ol>
+                <li><strong>Variable Line Thickness</strong> - This method changes the line thickness depending on how fast the user is drawing</li>
+                <li><strong>Quadratic Smoothing</strong> - Here we use quadratic functions to draw bezier curves that smooth drawn lines</li>
+            </ol>
+        </p>
+        <a href="Lesson/2-simulating-the-pen.html" target="_blank" class="button">See Working Demo</a>
+    </section>
+    
+    <section style="margin-bottom:40px;">
+        <h3>3. Putting it all Together</h3>
+        <p>
+            ...something something about something else. [mic drop]
+        </p>
+    </section>
+</body>
+</html>

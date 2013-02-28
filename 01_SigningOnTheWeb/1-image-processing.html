@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>HTML5 Lessons Learned - Signing on the Web | Image Processing</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/jquery-ui-1.10.1.css">
+    <script src="js/jquery-1.9.0.min.js"></script>
+    <script src="js/jquery-ui-1.10.1.js"></script>
+    <script src="js/modernizr-2.6.2.min.js"></script>
+    <script src="js/signing-on-the-web.js"></script>
+</head>
+<body>
+    <header>
+        <div class="headings">
+            <h2>Lessons Learned</h2>
+            <h1>Signing on the Web</h1>
+        </div>
+        <a href="index.html">
+            <img src="img/html5logo.png" class="html5logo"/>
+        </a>
+    </header>
+
+    <!-- ***************************************************** -->
+    <!-- First, select an image to work with -->
+    <section class="wrapper">
+        <label>
+            1. Select Image of Signature
+            <input type="file" onchange="loadFile(this);" />
+        </label>
+    </section>
+
+
+    <!-- ***************************************************** -->
+    <!-- Next, process the image. This is the good stuff -->
+    <section id="section_process_image" class="disabled">
+        <label>
+            2. Process Image
+        </label>
+        <img id="source_image" onload="drawImageOnCanvas($(this));" />
+        <img id="filtered_image" class="grid" />
+
+        <div id="section_process_image_options" class="actions" style="display:none;">
+            <!-- Select different image processing functions -->
+            <button class="action" onclick="drawImageOnCanvas($('#filtered_image'), gfx.Filter.desaturate);">Desaturate</button>
+            <button class="action" onclick="drawImageOnCanvas($('#filtered_image'), gfx.Filter.brightness);">Brighten</button>
+            <button class="action" onclick="drawImageOnCanvas($('#filtered_image'), gfx.Filter.multiply);">Multiply</button>
+            <button class="action" onclick="drawImageOnCanvas($('#filtered_image'), gfx.Filter.extract);">Extract</button>
+
+            <button class="action" onclick="drawImageOnCanvas($('#source_image'));">Reset</button>
+        </div>
+    </section>
+
+    <script>
+    //Create a global object to store Canvas image data
+    var imageData = null;
+
+    function loadFile(input) {
+        if (!window.FileReader) {
+            alert('Your browser does not support the File API - time to upgrade!');
+        }
+
+        if (input.files) {
+            var reader = new FileReader();
+            reader.onload = function(event) {
+                $('#source_image').get(0).src = event.target.result;
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+
+        $('#section_process_image').removeClass('disabled');
+        $('#section_process_image_options').show();
+    }
+
+    //Should get called after 
+    function drawImageOnCanvas(source, filter) {
+        var canvas = $('<canvas></canvas>');
+        canvas = canvas.get(0); //this returns the first item in the nodelist - jquery always returns an array
+
+        var source_width = $(source).width();
+        var source_height = $(source).height();
+
+        //You can't use jQuery's .width() or .height() to set the canvas dimensions... you just can't!
+        canvas.width = source_width;
+        canvas.height = source_height;
+
+        //Draw an image onto the canvas
+        var context = canvas.getContext('2d');
+        context.drawImage($(source).get(0), 0, 0, source_width, source_height);
+        
+        //Extract ImageData so we can directly manipulate pixels
+        imageData = context.getImageData(0, 0, source_width, source_height);
+
+        //Apply filter
+        if (filter) {
+            filter(imageData);
+        }
+
+        context.putImageData(imageData, 0, 0);
+
+        var updatedCanvas = $('<canvas></canvas>');
+        updatedCanvas = updatedCanvas.get(0);
+        updatedCanvas.width = source_width;
+        updatedCanvas.height = source_height;
+
+        var updatedContext = updatedCanvas.getContext('2d');
+        updatedContext.putImageData(imageData, 0, 0);
+        $('#filtered_image').get(0).src = updatedCanvas.toDataURL('image/png');
+    }
+
+    </script>
+</body>
+</html>
