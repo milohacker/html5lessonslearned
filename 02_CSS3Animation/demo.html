@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>HTML5 Lessons Learned - CSS3 Animation | Demo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/demo.css">
+    <script src="js/jquery-1.9.0.min.js"></script>
+    <script src="js/modernizr-2.6.2.min.js"></script>
+    <script src="js/signing-on-the-web.js"></script>
+</head>
+<body>
+<div id="container">
+    <img id="bg" src="assets/bg.jpg" />
+    <div id="particles"></div>
+
+    <div id="title_card">
+        <div id="html5">HTML5</div>
+        <div id="lessons_learned">Lessons Learned</div>
+        <div class="divider"></div>
+        <div id="css3_animation">CSS3 Animation</div>
+    </div>
+</div>
+
+<script>
+$('#title_card').bind('webkitAnimationEnd', function(event){
+    console.log('Effect complete', event); 
+});
+
+$(function() {
+    var particleCount = 200;
+    for (var i = 0; i < particleCount; i++) {
+        var particle = new Particle();
+        $('#particles').append(particle.element);
+    }
+});
+var Particle = function() {
+    var object = new Object();
+
+    object.element = $('<div class="particle"></div>');
+
+    var size = Math.floor(Math.random() * 40 + 5);
+    var top = Math.floor(Math.random() * $(document).height());
+    var left = Math.floor(Math.random() * $(document).width());
+
+    object.element.css({
+        top : top,
+        left : left,
+        width : size,
+        height : size,
+        opacity : Math.random() * 0.7
+    });
+
+    var duration = Math.floor(Math.random() * 100 + 40);
+    object.element.css('-webkit-transition-duration', duration + 's');
+
+    setTimeout(function(){
+        object.element.css({
+            '-webkit-transform' : 'translate3d(' + left + 'px, ' + top + 'px, 0px)'
+        });
+
+    }, 0);
+    
+
+    return object;
+};
+
+</script>
+</body>
+</html>

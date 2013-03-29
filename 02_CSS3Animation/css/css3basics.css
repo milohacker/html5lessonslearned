@@ -1,0 +1,79 @@
+.animation-container {
+    position:relative;
+}
+
+
+
+/*************************
+ * Transitions Examples */
+
+#miloSimple {
+    position:absolute;
+    box-shadow: none;
+
+    /* Properties Affected by transition */
+    left:0;
+
+    -webkit-transition:left 2s ease-in-out 0;
+}
+
+#miloComplex {
+    position:absolute;
+    box-shadow: none;
+
+    /* Properties Affected by transition */
+    left:0; 
+    opacity: 0.1;
+
+    -webkit-transition-property         : opacity, left;
+    -webkit-transition-duration         : 2s,      800ms;
+    -webkit-transition-delay            : 0,       2s;
+    -webkit-transition-timing-function  : ease-out;
+}
+
+#milo3d {
+    position:absolute;
+    box-shadow: none;
+
+    /* Properties Affected by transition */
+    -webkit-transform:rotate3d(0, 0, 0, 0deg);
+
+    -webkit-transition:all 2s ease-out 0;
+}
+
+/*************************
+ * Animation Examples   */
+
+#miloAnimated {
+    position:absolute;
+    box-shadow: none;
+
+    /* Properties Affected by animation */
+    left:0;
+}
+
+@-webkit-keyframes FLYING-MILO {
+    0% {
+        left: 0;
+        opacity: 0;
+        -webkit-transform:rotateZ(0deg);
+    }
+    25% {
+        left:100px;
+        top:5px;
+        opacity:1;
+        -webkit-transform:rotateZ(35deg);
+    }
+    50% {
+        left:600px;
+        top:-100px;
+        -webkit-transform:rotateZ(0deg);
+    }
+    100% {
+        left:25px;
+        top:200px;
+        -webkit-transform:rotateZ(35deg);
+    }
+}
+
+

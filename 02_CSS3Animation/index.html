@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>HTML5 Lessons Learned - CSS3 Animation</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/css3basics.css">
+    <script src="js/jquery-1.9.0.min.js"></script>
+    <script src="js/modernizr-2.6.2.min.js"></script>
+    <script src="js/css3basics.js"></script>
+</head>
+<body>
+    <header>
+        <div class="headings">
+            <h2>Lessons Learned</h2>
+            <h1>CSS3 Animation</h1>
+        </div>
+        <img src="img/html5logo.png" class="html5logo"/>
+    </header>
+    <section id="wifi" style="margin-bottom:260px;">
+        <h3>Guest Wifi</h3>
+        <p style="font-family:monospace; font-size:22px;">
+            <strong>Network:</strong> Nitro Guest <br />
+            <strong>Password:</strong> N1tr0_Gu3st
+        </p>
+
+        <p style="font-family:monospace; font-size:22px;">
+            <strong>Required Files:</strong> https://github.com/milohacker/html5lessonslearned
+        </p>
+
+        <p style="font-family:monospace; font-size:22px;">
+            <strong>hashtag:</strong> #lessonslearned
+        </p>
+        <a href="#" class="button" onclick="$('#wifi').hide(); return false;">Cool, let's get Started!</a>
+    </section>
+
+    <section class="accent">
+        Motion can be expressed by capturing an object in motion at various moments in time. 
+    </section>
+    <section style="margin-bottom:100px;">
+        <h3>1. Basics of Animation and Keyframes</h3>
+        <p>
+            In traditional animation, artists would create key moments that define the motion of an object. When viewing these frames in sequence, their perceived motion is not very fluid. 
+        </p>
+        <p style="margin-bottom:60px;">
+            <iframe width="640" height="480" src="http://www.youtube.com/embed/fjy71vXA3Do" frameborder="0" allowfullscreen></iframe>
+
+            <img src="assets/animation_keyframes.png" />
+        </p>
+
+        <p>
+            To smooth out the animation, "in-betweeners" would draw the rest of the frames that would bridge the key frames together
+        </p>
+        <p style="margin-bottom:60px;">
+            <img src="assets/animation_tweens.png" />
+        </p>
+
+        <p>
+            Here is an example of an animtion composed of only key frames (left), and an animation with all frames drawn.
+        </p>
+        <div id="balldrop" style="display:none;">
+            <img src="assets/balldrop5f.gif" style="float:left;"/>
+            <img src="assets/balldrop12f.gif" style="float:left;"/>
+            <div style="clear:left"></div>
+
+            <a href="#" onclick="$('#balldrop').hide(); $('#balldrop_guide').show(); return false;" class="button">Show Keyframes</a>
+        </div>
+        <div id="balldrop_guide">
+            <img src="assets/balldrop5f-guide.gif" style="float:left;"/>
+            <img src="assets/balldrop12f-guide.gif" style="float:left;"/>
+            <div style="clear:left"></div>
+
+            <a href="#" onclick="$('#balldrop').show(); $('#balldrop_guide').hide(); return false;" class="button">Show Original</a>
+        </div>
+    </section>
+
+    <section style="margin-bottom:100px;">
+        <h3>2. Transitions in CSS</h3>
+        <p>
+            Before we can animate, we need understand the fundamentals of motions in HTML and CSS.
+        </p>
+
+        <div class="code">
+            <span class="caption">Transition Syntax</span>
+            <span class="note">
+                Note that these properties require venor prefixes to function correctly. For example, -webkit-transition if using Google Chrome or Safari, or -moz-transition if using Firefox.
+            </span>
+            <code>
+                transition: property duration easing delay;
+            </code>
+        </div>
+
+        <!-- 1. SIMPLE TRANSITION -->
+        <div style="margin-bottom:80px;">
+            <div class="code" style="margin-bottom:5px;">
+                <span class="caption">1. Simple Transition Example</span>
+                <code>
+                    -webkit-transition: left 2s ease-in-out 0;
+                </code>
+            </div>
+
+            <div class="animation-container" style="height:100px;">
+                <img id="miloSimple" src="assets/flying_milo.png" />
+            </div>
+            <a href="#" class="button" onclick="simpleTransition(); return false;">Simple Transition</a>
+        </div>
+
+        <!-- 2. COMPLEX TRANSITION -->
+        <div style="margin-bottom:80px;">
+            <div class="code" style="margin-bottom:5px;">
+                <span class="caption">2. Complex Transition Example</span>
+                <code>
+                    -webkit-transition-property:opacity, left; <br/>
+                    -webkit-transition-duration:2s, 0.2s; <br/>
+                    -webkit-transition-timing-function:ease-in-out; <br/>
+                    -webkit-transition-delay:0, 4s;
+                </code>
+            </div>
+
+            <div class="animation-container" style="height:100px;">
+                <img id="miloComplex" src="assets/flying_milo.png" />
+            </div>
+            <a href="#" class="button" onclick="complexTransition(); return false;">Complex Transition</a>
+        </div>
+
+        <!-- 3. 3D TRANSITION -->
+        <div>
+            <div class="code" style="margin-bottom:5px;">
+                <span class="caption">3. 3D Transitions</span>
+                <code>
+                    -webkit-transform:rotate3d(0, 0, 0, 0deg);<br/><br/>
+                    -webkit-transition:all 2s ease-out 0;
+                </code>
+            </div>
+
+            <div class="animation-container" style="height:100px;">
+                <img id="milo3d" src="assets/flying_milo.png" />
+            </div>
+            <a href="#" class="button" onclick="threedTransition(); return false;">Random 3D Rotation</a>
+        </div>
+
+    </section>
+    
+    <section style="margin-bottom:40px;">
+        <h3>3. Animations in CSS</h3>
+        <p>
+            Now that we have the basic understanding of transitions and timing, we can create a series of transitions to produce an animation.
+        </p>
+        <p>
+            In order to create animations in CSS3, we need two things:
+            <ol>
+                <li><strong>Keyframe Definitions</strong> - This is where you specify what actions are to happen and when.</li>
+                <li><strong>Animation Usage</strong> - Here you define which keyframe declaration you wish to use for your CSS rules.</li>
+            </ol>
+        </p>
+
+        <div class="code">
+            <span class="caption">Keyframe Syntax</span>
+            <span class="note">
+                Note that these properties require venor prefixes to function correctly. For example, -webkit-keyframes if using Google Chrome or Safari, or -moz-keyframes if using Firefox.
+            </span>
+            <code>
+                @keyframes ANIMATION-NAME { <br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;n%   { property: value; }<br/>
+                }<br/><br/>
+
+                selector {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;animation: ANIMATION-NAME duration delay iterations timing;<br/>
+                }
+            </code>
+        </div>
+
+        <div class="code">
+            <span class="caption">Example Animation</span>
+            <code>
+                @-webkit-keyframes FADE-OUT { <br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;0%&nbsp;&nbsp;&nbsp;{ opacity: 1; }<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;{ opacity: 0; }<br/>
+                }<br/>
+
+                #milo {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;-webkit-animation:FADE-OUT 3s 0s infinite;<br/>
+                }
+            </code>
+
+            <div class="animation-container" style="height:100px;">
+                <img id="miloAnimated" src="assets/flying_milo.png" />
+            </div>
+            <a href="#" class="button" onclick="animate(); return false;">Animate!</a>
+        </div>
+    </section>
+
+    <section style="margin-bottom:40px;">
+        <h3>4. Putting it all Together</h3>
+        <p>
+            We invite you to build something great and apply at Nitro! 
+        </p>
+    </section>
+</body>
+</html>
